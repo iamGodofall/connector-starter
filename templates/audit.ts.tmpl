@@ -1,0 +1,25 @@
+/**
+ * Audit logs for {{platform}} Adapter
+ * Signed action logging.
+ */
+
+import crypto from 'crypto';
+import fs from 'fs-extra';
+
+const LOG_FILE = 'audit.log';
+
+export function audit(action: string, metadata: any) {
+  const timestamp = new Date().toISOString();
+  const entry = {
+    action,
+    timestamp,
+    metadata,
+    signature: crypto.createHmac('sha256', 'capkit-secret').update(JSON.stringify({ action, timestamp, metadata })).digest('hex'),
+  };
+  
+  fs.appendFileSync(LOG_FILE, JSON.stringify(entry) + '\n');
+  
+  if ({{features | includes 'audit'}}) {
+    console.log(`📝 Audit: ${action}`);
+  }
+}

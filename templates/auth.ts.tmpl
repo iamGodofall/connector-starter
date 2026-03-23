@@ -1,0 +1,24 @@
+/**
+ * Auth module for {{platform}} Adapter
+ * User-controlled keys only.
+ */
+
+export async function getAuth() {
+  // TODO: Implement {{authType}} flow
+  // Load from capkit secure storage
+  const config = await import('./config.yaml', { assert: { type: 'yaml' } });
+  const key = process.env[`{{platform}}_KEY`]; // User must set env
+  
+  if (!key) {
+    throw new Error('Set {{platform}}_KEY environment variable');
+  }
+
+  return {
+    type: '{{authType}}',
+    getKey: () => Promise.resolve(key),
+    refresh: async () => {
+      // OAuth refresh logic if needed
+      console.log('Token refreshed');
+    },
+  };
+}

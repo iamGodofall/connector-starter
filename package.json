@@ -1,0 +1,54 @@
+{
+  "name": "connector-starter",
+  "version": "0.1.0",
+  "description": "Generate production-ready platform adapters in 60 seconds. Auth, caching, and audit included.",
+  "bin": {
+    "connector-starter": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "test": "jest",
+"demo": "pwsh -ExecutionPolicy Bypass -File demo/run-demo.ps1",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "js-yaml": "^4.1.0",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/jest": "^29.5.12",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.7.4",
+    "@types/prompts": "^2.4.9",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  },
+  "keywords": [
+    "adapter-generator",
+    "platform-integration",
+    "cli-tool",
+    "typescript",
+    "nodejs",
+    "open-source",
+    "agent-framework"
+  ],
+  "author": "Themba Enock Mpehle <yardrun@icloud.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/**/*",
+    "templates/**/*",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamGodofall/connector-starter.git"
+  }
+}

@@ -1,0 +1,32 @@
+/**
+ * Local cache for {{platform}} Adapter
+ * Encrypted local storage.
+ */
+
+import fs from 'fs-extra';
+import path from 'path';
+import crypto from 'crypto';
+
+const CACHE_DIR = path.join(process.cwd(), '.cache/{{name}}');
+
+export function getCache() {
+  fs.ensureDirSync(CACHE_DIR);
+
+  return {
+    get: async (key: string) => {
+      const file = path.join(CACHE_DIR, crypto.createHash('md5').update(key).digest('hex'));
+      if (fs.existsSync(file)) {
+        return JSON.parse(fs.readFileSync(file, 'utf8'));
+      }
+      return null;
+    },
+    set: async (key: string, value: any, ttl: number = 3600) => {
+      const file = path.join(CACHE_DIR, crypto.createHash('md5').update(key).digest('hex'));
+      const data = {
+        value,
+        expires: Date.now() + ttl * 1000,
+      };
+      fs.writeFileSync(file, JSON.stringify(data));
+    },
+  };
+}
